@@ -10,7 +10,7 @@ import { TouchableOpacity } from 'react-native';
 export default function Category({category}) {
 
   const[categoryList,setCategoryList]=useState([]);
-  const[selectedCategory,setSelectedCategory]=useState('Clothes');
+  const[selectedCategory,setSelectedCategory]=useState('Clothing');
 
   useEffect(()=>{
     GetCategories();
@@ -34,9 +34,11 @@ export default function Category({category}) {
         fontSize: 20
       }}>Category</Text>
 
-      <FlatList
-      numColumns={2}
+      <FlatList 
+      horizontal // This makes the list scroll horizontally
+      showsHorizontalScrollIndicator={false} // Hide the scroll indicator if desired
       data={categoryList}
+      keyExtractor={(item, index) => item.name + index} // Add unique key for each item
       renderItem={({item,index})=>(
         <TouchableOpacity 
         onPress={()=>{
@@ -50,8 +52,12 @@ export default function Category({category}) {
             selectedCategory==item.name&&styles.selectedCategoryContainer]}>
                 <Image source={{uri:item?.imageUrl}}
                 style={{
-                  width:60,
-                  height:60
+                  width:80,
+                  height:80,
+                  borderRadius:99,
+                  alignItems:'center',
+                  top:2.5
+
                 }}/>
             </View>
             <Text style={{
@@ -68,12 +74,13 @@ export default function Category({category}) {
 const styles = StyleSheet.create({
   container:{
     backgroundColor:Colors.LIGHT_PRIMARY,
-    padding:15,
     alignItems:'center',
-    borderWidth:1,
-    borderRadius:15,
+    borderWidth:0,
+    borderRadius:80,
     borderColor:Colors.PRIMARY,
-    margin:5
+    margin:5,
+    width:85,
+    height:85,
   },
   selectedCategoryContainer:{
     backgroundColor:Colors.SECONDARY,

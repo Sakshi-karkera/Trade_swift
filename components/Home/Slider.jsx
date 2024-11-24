@@ -2,6 +2,8 @@ import { View, Text, FlatList, StyleSheet, Image, Dimensions } from 'react-nativ
 import React, { useEffect, useState } from 'react'
 import { collection, getDocs } from 'firebase/firestore'
 import {db} from './../../config/FirebaseConfig'
+import Colors from '../../constants/Colors';
+
 
 export default function Slider() {
     const[sliderList,setSliderList]=useState([]);
@@ -18,9 +20,7 @@ export default function Slider() {
         })
     }
   return (
-    <View style={{
-        marginTop:15
-    }}>
+    <View style={styles.sliderContainer}>
       <FlatList
       horizontal={true}
       showsHorizontalScrollIndicator={false}
@@ -35,11 +35,15 @@ export default function Slider() {
     </View>
   )
 }
+
 const styles = StyleSheet.create({
+    sliderContainer: {
+        marginTop: 15,
+    },
     sliderImage:{
-        width:Dimensions.get('screen').width*0.9,
-        height:170,
-        borderRadius:15,
-        marginRight:15
+        width: Dimensions.get('screen').width * 0.8,
+        height: 170,
+        borderRadius: 15,
+        marginRight: 15
     }
 })
